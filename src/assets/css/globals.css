@@ -1,0 +1,25 @@
+.wizard > .content > .body input {
+    display: inline-block;
+}
+
+.btn-primary {
+    background-color: #ff7539 !important;
+    border-color: #ff7539 !important;
+}
+
+.slim-navbar .nav-item.active .nav-link, .btn-signin  {
+    background-color: #2f1b66;
+    background-image: linear-gradient(to right, #2f1b66 0%, #5128cb 100%);
+}
+
+.signin-left {
+    width: 50%;
+    background-color: #ff7539;
+    color: white !important;
+}
+
+.nav-pills .nav-link.active, .nav-pills .nav-link.active:hover, 
+.nav-pills .nav-link.active:focus {
+    color: #fff;
+    background-color: #2f1b66;
+}
