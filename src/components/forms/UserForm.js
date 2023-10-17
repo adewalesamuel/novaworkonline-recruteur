@@ -129,8 +129,8 @@ export function UserForm(props) {
                 </div>
 				<div className='col-12'>
                     <div className='form-group'>
-                        <label htmlFor='jobtitle_id'>Jobtitle_id</label>
-                        <select className='select2 form-control' id='jobtitle_id' name='jobtitle_id' value={props.useUser.jobtitle_id ?? ''}
+                        <label htmlFor='job_title_id'>Jobtitle_id</label>
+                        <select className='select2 form-control' id='job_title_id' name='job_title_id' value={props.useUser.job_title_id ?? ''}
                         disabled={props.isDisabled} 
                         onChange={ e => props.useUser.setJobtitle_id(e.target.value) ?? null} required>
                             {/* {

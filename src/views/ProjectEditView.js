@@ -4,7 +4,7 @@ import { Hooks } from "../hooks";
 import { useParams } from "react-router-dom";
 
 export function ProjectEditView(props) {
-    const abortController = new AbortController();
+    let abortController = new AbortController();
 
     const {id} = useParams();
 
@@ -20,7 +20,8 @@ export function ProjectEditView(props) {
         try {
             await useProject.updateProject(id, abortController.signal);
         } catch (error) {
-            console.log(error);
+            if ('messages' in error)
+                error.messages.then(messages => setErrorMessages(messages));
         }finally{useProject.setIsDisabled(false)}
     }
 
@@ -45,7 +46,7 @@ export function ProjectEditView(props) {
             <div className="slim-pageheader">
                 <ol className="breadcrumb slim-breadcrumb">
                 </ol>
-                <h6 className="slim-pagetitle">Modifer le projet</h6>
+                <h6 className="slim-pagetitle">Modifier le projet</h6>
             </div> 
             <Components.Container>
                 <div className="row">

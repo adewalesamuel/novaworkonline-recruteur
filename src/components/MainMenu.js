@@ -12,7 +12,7 @@ export function MainMenu(props){
                     </Link>
                 </li>
                 <li className="nav-item">
-                    <Link className="nav-link" to="/abonnements">
+                    <Link className="nav-link" to="/packs">
                         <i className="icon ion-ios-book-outline"></i>
                         <span>Abonnements</span>
                     </Link>

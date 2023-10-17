@@ -4,7 +4,7 @@ import { Hooks } from "../hooks";
 import { useNavigate } from "react-router-dom";
 
 export function ProjectCreateView(props) {
-    const abortController = new AbortController();
+    let abortController = new AbortController();
 
     const navigate = useNavigate();
 
@@ -21,7 +21,8 @@ export function ProjectCreateView(props) {
             await useProject.createProject(abortController.signal);
             navigate('/projets');
         } catch (error) {
-            console.log(error);
+            if ('messages' in error)
+                error.messages.then(messages => setErrorMessages(messages));
         }finally{useProject.setIsDisabled(false)}
     }
 

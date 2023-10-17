@@ -16,7 +16,7 @@ export const useUser = () => {
 	const [is_active, setIs_active] = useState('');
 	const [is_qualified, setIs_qualified] = useState('');
 	const [country_id, setCountry_id] = useState('');
-	const [jobtitle_id, setJobtitle_id] = useState('');
+	const [job_title_id, setJobtitle_id] = useState('');
 	
 
     const [errors, setErrors] = useState([]);
@@ -45,7 +45,7 @@ export const useUser = () => {
 		is_active,
 		is_qualified,
 		country_id,
-		jobtitle_id,
+		job_title_id,
 		
         };
 
@@ -66,7 +66,7 @@ export const useUser = () => {
 		is_active,
 		is_qualified,
 		country_id,
-		jobtitle_id,
+		job_title_id,
 		
         };
 
@@ -90,7 +90,7 @@ export const useUser = () => {
 		setIs_active(user.is_active ?? '');
 		setIs_qualified(user.is_qualified ?? '');
 		setCountry_id(user.country_id ?? '');
-		setJobtitle_id(user.jobtitle_id ?? '');
+		setJobtitle_id(user.job_title_id ?? '');
 		
     }
     const emptyUser = () => {
@@ -127,7 +127,7 @@ export const useUser = () => {
 		is_active,
 		is_qualified,
 		country_id,
-		jobtitle_id,
+		job_title_id,
 		
         errors,
         isDisabled,

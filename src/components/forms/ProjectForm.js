@@ -7,9 +7,9 @@ export function ProjectForm(props) {
             <div className='row'>
                 <div className='col-12'>
                     <div className='form-group'>
-                        <label htmlFor='name'>Name</label>
+                        <label htmlFor='name'>Nom du projet</label>
                         <input className='form-control' type='text' id='name' name='name' 
-                        placeholder='Name' value={props.useProject.name ?? ''}
+                        placeholder='Nom du projet' value={props.useProject.name ?? ''}
                         disabled={props.isDisabled} 
                         onChange={ e => props.useProject.setName(e.target.value) ?? null} required/>
                     </div>

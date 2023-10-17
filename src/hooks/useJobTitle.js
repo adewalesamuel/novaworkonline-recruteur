@@ -12,10 +12,10 @@ export const useJobTitle = () => {
     const [errors, setErrors] = useState([]);
     const [isDisabled, setIsDisabled] = useState(false);
 
-    const getJobTitle = (jobtitleId, signal) => {        
-        return Services.JobTitleService.getById(jobtitleId, signal)
+    const getJobTitle = (job_titleId, signal) => {        
+        return Services.JobTitleService.getById(job_titleId, signal)
         .then(response => {
-            fillJobTitle(response.jobtitle);
+            fillJobTitle(response.job_title);
             setIsDisabled(false);
         });
     }
@@ -31,7 +31,7 @@ export const useJobTitle = () => {
 
         return Services.JobTitleService.create(JSON.stringify(payload), signal);
     }
-    const updateJobTitle = (jobtitleId, signal) => {
+    const updateJobTitle = (job_titleId, signal) => {
         const payload = {
             name,
 		slug,
@@ -40,17 +40,17 @@ export const useJobTitle = () => {
 		
         };
 
-        return Services.JobTitleService.update(jobtitleId, JSON.stringify(payload), signal);
+        return Services.JobTitleService.update(job_titleId, JSON.stringify(payload), signal);
     }
-    const deleteJobTitle = (jobtitleId, signal) => {
-        return Services.JobTitleService.destroy(jobtitleId, signal);
+    const deleteJobTitle = (job_titleId, signal) => {
+        return Services.JobTitleService.destroy(job_titleId, signal);
     }
-    const fillJobTitle = (jobtitle) => {
-        setId(jobtitle.id);
-        setName(jobtitle.name ?? '');
-		setSlug(jobtitle.slug ?? '');
-		setDescription(jobtitle.description ?? '');
-		setIcon_url(jobtitle.icon_url ?? '');
+    const fillJobTitle = (job_title) => {
+        setId(job_title.id);
+        setName(job_title.name ?? '');
+		setSlug(job_title.slug ?? '');
+		setDescription(job_title.description ?? '');
+		setIcon_url(job_title.icon_url ?? '');
 		
     }
     const emptyJobTitle = () => {

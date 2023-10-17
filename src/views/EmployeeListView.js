@@ -4,7 +4,7 @@ import { Services } from "../services";
 import { Components } from "../components";
 
 export function EmployeeListView(props) {
-    const abortController = new AbortController();
+    let abortController = new AbortController();
     const { EmployeeService } = Services;
 
     const [searchParams, setSearchParams] = useSearchParams();
@@ -42,7 +42,12 @@ export function EmployeeListView(props) {
     }, []);
 
     useEffect(() => {
-      init()
+      init();
+
+      return () => {
+            abortController.abort();
+            abortController = new AbortController();
+        }
     }, [init])
 
     useEffect(() => {

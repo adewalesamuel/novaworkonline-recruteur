@@ -4,7 +4,7 @@ import { Services } from "../services";
 import { Components } from "../components";
 
 export function UserQualifiedListView(props) {
-    const abortController = new AbortController();
+    let abortController = new AbortController();
     const { JobTitleService, UserService } = Services;
 
     const [searchParams, setSearchParams] = useSearchParams();
@@ -49,7 +49,12 @@ export function UserQualifiedListView(props) {
     }, []);
 
     useEffect(() => {
-      init()
+      init();
+
+      return () => {
+            abortController.abort();
+            abortController = new AbortController();
+        }
     }, [init])
 
     useEffect(() => {

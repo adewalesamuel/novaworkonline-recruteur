@@ -7,7 +7,7 @@ import entretienIcon from '../assets/img/entretien-icon.png';
 import projetIcon from '../assets/img/project-icons.png';
 
 export function DashboardView(props) {
-    const abortController = new AbortController();
+    let abortController = new AbortController();
 
     const tableAttributes = {
         'id': {},
@@ -57,7 +57,12 @@ export function DashboardView(props) {
     }, [])
 
     useEffect(() => {
-      init()
+      init();
+
+      return () => {
+            abortController.abort();
+            abortController = new AbortController();
+        }
     }, [init])
 
     return (

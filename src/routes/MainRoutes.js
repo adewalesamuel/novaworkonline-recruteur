@@ -6,6 +6,7 @@ export function MainRoutes(props) {
     return (
         <Layout.MainLayout>
             <Routes>
+                <Route path="/packs" element={<Views.SubscriptionPackListView />} />
                 <Route path="/candidats/:id" element={<Views.UserShowView />} />
                 <Route path="/projet/creer" element={<Views.ProjectCreateView />} />
                 <Route path="/projets/:id/modifier" element={<Views.ProjectEditView />} />

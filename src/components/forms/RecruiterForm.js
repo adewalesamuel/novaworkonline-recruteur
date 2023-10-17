@@ -2,7 +2,7 @@ import { Components } from '..'
 import { Services } from '../../services';
 
 export function RecruiterForm(props) {
-    const abortController = new AbortController();
+    let abortController = new AbortController();
     
     const handleFileUpload = async file => {
         props.useRecruiter.setIsDisabled(true);
@@ -69,9 +69,9 @@ export function RecruiterForm(props) {
                         <select className='form-control' type='text' id='gender' name='gender' 
                         value={props.useRecruiter.gender ?? ''} disabled={props.isDisabled} 
                         onChange={e => props.useRecruiter.setGender(e.target.value) ?? null} required>
-                            <option value={"Homme"}>Homme</option>
-                            <option value={"Femme"}>Femme</option>
-                            <option value={"Autre"}>Autre</option>
+                            <option value={"M"}>Homme</option>
+                            <option value={"F"}>Femme</option>
+                            <option value={"O"}>Autre</option>
                         </select>
                     </div>
                 </div>

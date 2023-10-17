@@ -4,7 +4,7 @@ import { Services } from "../services";
 import { Components } from "../components";
 
 export function ProjectListView(props) {
-    const abortController = new AbortController();
+    let abortController = new AbortController();
     const { ProjectService } = Services;
 
     const [searchParams, setSearchParams] = useSearchParams();
@@ -63,7 +63,12 @@ export function ProjectListView(props) {
     }, []);
 
     useEffect(() => {
-      init()
+      init();
+
+      return () => {
+            abortController.abort();
+            abortController = new AbortController();
+        }
     }, [init])
 
     useEffect(() => {

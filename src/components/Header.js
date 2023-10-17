@@ -22,10 +22,10 @@ export function Header(props) {
                         <a href="index.html"><img src={logo} height="40px" alt=""/></a>
                     </h2>
 
-                    <div className="search-box">
+                    {/* <div className="search-box">
                         <input type="text" className="form-control" placeholder="Rechercher" />
                         <button className="btn btn-primary"><i className="fa fa-search"></i></button>
-                    </div>
+                    </div> */}
                 </div>
                 <div className="slim-header-right" role='button'>
                     <div className="dropdown dropdown-c">

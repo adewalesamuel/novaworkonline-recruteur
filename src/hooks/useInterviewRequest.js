@@ -4,7 +4,6 @@ import { Services } from '../services';
 export const useInterviewRequest = () => {
     const [id, setId] = useState('');
 	const [status, setStatus] = useState('');
-	const [recruteur_id, setRecruteur_id] = useState('');
 	const [user_id, setUser_id] = useState('');
 	const [slug, setSlug] = useState('');
 	const [description, setDescription] = useState('');
@@ -24,12 +23,9 @@ export const useInterviewRequest = () => {
 
     const createInterviewRequest = signal => {
         const payload = {
-            status,
-		recruteur_id,
-		user_id,
-		slug,
-		description,
-		recruiter_id,
+            user_id,
+            slug,
+            description,
 		
         };
 
@@ -37,12 +33,9 @@ export const useInterviewRequest = () => {
     }
     const updateInterviewRequest = (interviewrequestId, signal) => {
         const payload = {
-            status,
-		recruteur_id,
 		user_id,
 		slug,
 		description,
-		recruiter_id,
 		
         };
 
@@ -54,7 +47,6 @@ export const useInterviewRequest = () => {
     const fillInterviewRequest = (interviewrequest) => {
         setId(interviewrequest.id);
         setStatus(interviewrequest.status ?? '');
-		setRecruteur_id(interviewrequest.recruteur_id ?? '');
 		setUser_id(interviewrequest.user_id ?? '');
 		setSlug(interviewrequest.slug ?? '');
 		setDescription(interviewrequest.description ?? '');
@@ -64,7 +56,6 @@ export const useInterviewRequest = () => {
     const emptyInterviewRequest = () => {
         setId('');
         setStatus('');
-		setRecruteur_id('');
 		setUser_id('');
 		setSlug('');
 		setDescription('');
@@ -75,7 +66,6 @@ export const useInterviewRequest = () => {
     return {
         id,
         status,
-		recruteur_id,
 		user_id,
 		slug,
 		description,
@@ -84,7 +74,6 @@ export const useInterviewRequest = () => {
         errors,
         isDisabled,
         setStatus,
-		setRecruteur_id,
 		setUser_id,
 		setSlug,
 		setDescription,

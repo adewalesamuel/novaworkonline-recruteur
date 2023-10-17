@@ -1,18 +1,39 @@
 import { useCallback, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Services } from "../services";
 import { Hooks } from "../hooks";
+import { Utils } from "../utils";
 
 export function UserShowView(props) {
-    const abortController = new AbortController();
+    let abortController = new AbortController();
     const { UserService } = Services;
 
+    const navigate = useNavigate();
+
     const resume = Hooks.useResume();
+    const useInterviewRequest = Hooks.useInterviewRequest();
 
     const [user, setUser] = useState({});
     const { id } = useParams()
     const [isLoading, setIsLoading] = useState(false);
 
+    const handleInterviewRequestClick = async (e) => {
+      e.preventDefault();
+
+      try {
+          const {isConfirmed} = await Utils.SweetAlert.fireAlert(
+            'inviter pour entretien', `${user.lastname} ${user.firstname}`);
+
+          if (isConfirmed) {
+            useInterviewRequest.setIsDisabled(true);
+            await useInterviewRequest.createInterviewRequest(abortController.signal);
+            navigate('/demandes-entretiens');
+            //suceess toast
+          }
+      } catch (error) {
+          console.log(error);
+      }finally{useInterviewRequest.setIsDisabled(false);}
+    }
 
     const init = useCallback(async () => {
         try {
@@ -20,14 +41,20 @@ export function UserShowView(props) {
               abortController.signal);
 
             setUser(user);
-            resume.fillResume(user.resume);
+            resume.fillResume(user?.resume ?? {});
+            useInterviewRequest.setUser_id(user.id);
         } catch (error) {
             console.log(error);
         } finally {setIsLoading(false)};
     }, []);
 
     useEffect(() => {
-      init()
+      init();
+
+      return () => {
+            abortController.abort();
+            abortController = new AbortController();
+        }
     }, [init])
 
     return (
@@ -61,10 +88,13 @@ export function UserShowView(props) {
                   <i className="icon ion-document-text tx-success"></i> Voir le cv
                 </Link>
               </li>
-              <li className="nav-item">
-                <a href="/" className="nav-link">
-                  <i className="icon ion-ios-redo tx-purple"></i>Inviter pour entretien</a>
-              </li>
+              {!user.interview_request ? 
+                <li className="nav-item">
+                  <button className="nav-link btn-block btn" onClick={handleInterviewRequestClick}>
+                    <i className="icon ion-ios-redo tx-purple"></i>Inviter pour entretien
+                  </button>
+                </li>
+              : null}
             </ul>
           </div>
 

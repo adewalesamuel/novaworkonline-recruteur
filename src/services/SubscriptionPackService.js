@@ -1,7 +1,7 @@
 import { Api } from './Api';
 
 const  ENPOINTS = {
-    SubscriptionPack: 'subscriptionpacks',
+    SubscriptionPack: 'recruiter/subscription-packs',
 };
 
 const getAll = signal => {

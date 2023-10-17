@@ -5,7 +5,7 @@ import { Services } from "../services";
 import { Utils } from "../utils";
 
 export function ProfileView(props) {
-    const abortController = new AbortController();
+    let abortController = new AbortController();
 
     const useRecruiter = Hooks.useRecruiter();
 
@@ -39,7 +39,12 @@ export function ProfileView(props) {
     }, [])
 
     useEffect(() => {
-      init()
+      init();
+
+      return () => {
+            abortController.abort();
+            abortController = new AbortController();
+        }
     }, [init])
 
     return (
@@ -47,7 +52,7 @@ export function ProfileView(props) {
             <div className="slim-pageheader">
                 <ol className="breadcrumb slim-breadcrumb">
                 </ol>
-                <h6 className="slim-pagetitle">Modifer profil</h6>
+                <h6 className="slim-pagetitle">Mon profil</h6>
             </div>
             <Components.Container>
                 <Components.ErrorMessages>

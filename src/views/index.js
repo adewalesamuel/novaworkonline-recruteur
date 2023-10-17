@@ -7,6 +7,7 @@ import { ProjectCreateView } from "./ProjectCreateView";
 import { ProjectEditView } from "./ProjectEditView";
 import { ProjectListView } from "./ProjectListView";
 import { RegisterView } from "./RegisterView";
+import { SubscriptionPackListView } from "./SubscriptionPackListView";
 import { UserQualifiedListView } from "./UserQualifiedListView";
 import { UserShowView } from "./UserShowView";
 
@@ -22,4 +23,5 @@ export const Views = {
     UserShowView,
     ProjectEditView,
     ProjectCreateView,
+    SubscriptionPackListView
 }
