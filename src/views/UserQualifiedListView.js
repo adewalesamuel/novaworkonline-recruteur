@@ -11,15 +11,15 @@ export function UserQualifiedListView(props) {
 
     const [job_titles, setJob_titles] = useState([]);
     const [users, setUsers] = useState([]);
-    const [page, setPage] = useState(searchParams.get('page') ?? 1);
-    const [isLoading, setIsLoading] = useState(false);
+    const [page, setPage] = useState(1);
+    const [isLoading, setIsLoading] = useState(true);
 
-    const loadUsers = async (can_append = false) => {
+    const loadUsers = async (can_append = false, currentPage = page) => {
         setIsLoading(true);
 
         try {
             const userList = await UserService.getQualified(
-                {page: page, job_title_id : searchParams.get('job_title_id')}, 
+                {page: currentPage, job_title_id : searchParams.get('job_title_id')}, 
                 abortController.signal);
             
             if (can_append) {
@@ -32,6 +32,13 @@ export function UserQualifiedListView(props) {
         } catch (error) {
             console.log(error);
         }finally{setIsLoading(false)}
+    }
+
+    const handleLoadMoreClick = e => {
+        e.preventDefault();
+        if (isLoading) return;
+
+        setPage(page => page + 1);
     }
 
     const init = useCallback(async () => {
@@ -58,10 +65,12 @@ export function UserQualifiedListView(props) {
     }, [init])
 
     useEffect(() => {
-        loadUsers(false);
+        setPage(1);
+        loadUsers(false, 1);
     },[searchParams.get('job_title_id')]);
 
     useEffect(() => {
+        if (page === 1) return;
         loadUsers(true);
     },[page]);
 
@@ -77,13 +86,16 @@ export function UserQualifiedListView(props) {
                     <div className="row row-sm">
                         {users.map((user, index) => {
                             return (
-                                <div className="col-sm-6 col-lg-4" key={index}>
+                                <div className="col-sm-6 col-lg-4 pb-2" key={index}>
                                     <Components.UserCard user={user}/>
                                 </div>
                             )
                         })}
                     </div>
-                    <Link to="/" className="btn btn-light btn-block mg-t-20">Charger plus</Link>
+                    <span to="/" className="btn btn-light btn-block mg-t-20"
+                    onClick={handleLoadMoreClick}>
+                        {isLoading ? "Chargements.." : "Charger plus"}
+                    </span>
                 </div>
 
                 <div className="manager-left">

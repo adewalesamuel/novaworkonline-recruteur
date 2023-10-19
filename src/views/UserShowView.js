@@ -114,7 +114,7 @@ export function UserShowView(props) {
                   <div><i className="icon ion-ios-calendar-outline tx-18 lh-0"></i></div>
                   <div className="media-body mg-l-15 mg-t-2">
                     <h6 className="tx-14 tx-gray-700">Date de naissance</h6>
-                    <p>{user.birt_date}</p>
+                    <p>{user.birth_date}</p>
                   </div>
                 </div>
                 <div className="media mg-t-25">

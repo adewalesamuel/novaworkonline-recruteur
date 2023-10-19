@@ -22,7 +22,11 @@ code {
   border-color: #ff7539 !important;
 }
 
-.slim-navbar .nav-item.active .nav-link, .btn-signin  {
+.slim-navbar .nav-item .nav-link.active {
+  color: #fff;
+}
+
+.slim-navbar .nav-item .nav-link.active, .btn-signin  {
   background-color: #2f1b66;
   background-image: linear-gradient(to right, #2f1b66 0%, #5128cb 100%);
 }

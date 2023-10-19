@@ -5,20 +5,19 @@ import { Components } from "../components";
 
 export function EmployeeListView(props) {
     let abortController = new AbortController();
+
     const { EmployeeService } = Services;
 
-    const [searchParams, setSearchParams] = useSearchParams();
-
     const [employees, setEmployees] = useState([]);
-    const [page, setPage] = useState(searchParams.get('page') ?? 1);
-    const [isLoading, setIsLoading] = useState(false);
+    const [page, setPage] = useState(1);
+    const [isLoading, setIsLoading] = useState(true);
 
-    const loadEmployees = async () => {
+    const loadEmployees = async (currentPage = page) => {
         setIsLoading(true);
 
         try {
             const employeeList = await EmployeeService.getAll(
-                {page: page}, abortController.signal);
+                {page: currentPage}, abortController.signal);
             
             const employeesCopy = employees.map(employee => 
                 ({...employee, user: employee.user}))
@@ -28,6 +27,13 @@ export function EmployeeListView(props) {
         } catch (error) {
             console.log(error);
         }finally{setIsLoading(false)}
+    }
+
+    const handleLoadMoreClick = e => {
+        e.preventDefault();
+        if (isLoading) return;
+
+        setPage(page => page + 1);
     }
 
     const init = useCallback(async () => {
@@ -51,7 +57,8 @@ export function EmployeeListView(props) {
     }, [init])
 
     useEffect(() => {
-        // loadEmployees();
+        if (page === 1) return;
+        loadEmployees();
     },[page]);
 
     return (
@@ -72,7 +79,10 @@ export function EmployeeListView(props) {
                             )
                         })}
                     </div>
-                    <Link to="/" className="btn btn-light btn-block mg-t-20">Charger plus</Link>
+                    <span to="/" className="btn btn-light btn-block mg-t-20"
+                    onClick={handleLoadMoreClick}>
+                        {isLoading ? "Chargements.." : "Charger plus"}
+                    </span>                
                 </div>
             </div>
         </>

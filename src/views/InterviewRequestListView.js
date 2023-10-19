@@ -5,21 +5,19 @@ import { Components } from "../components";
 
 export function InterviewRequestListView(props) {
     let abortController = new AbortController();
-    const { JobTitleService, InterviewRequestService } = Services;
 
-    const [searchParams, setSearchParams] = useSearchParams();
+    const { InterviewRequestService } = Services;
 
-    const [job_titles, setJob_titles] = useState([]);
     const [interview_requests, setInterview_requests] = useState([]);
-    const [page, setPage] = useState(searchParams.get('page') ?? 1);
+    const [page, setPage] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
 
-    const loadInterviewRequests = async () => {
+    const loadInterviewRequests = async (currentPage = page) => {
         setIsLoading(true);
 
         try {
             const interview_requestList = await InterviewRequestService.getAll(
-                {page: page}, abortController.signal);
+                {page: currentPage}, abortController.signal);
             
             const interview_requestsCopy = interview_requests.map(interview_request => 
                 ({...interview_request, user: interview_request.user}))
@@ -29,6 +27,13 @@ export function InterviewRequestListView(props) {
         } catch (error) {
             console.log(error);
         }finally{setIsLoading(false)}
+    }
+
+    const handleLoadMoreClick = e => {
+        e.preventDefault();
+        if (isLoading) return;
+
+        setPage(page => page + 1);
     }
 
     const init = useCallback(async () => {
@@ -52,7 +57,8 @@ export function InterviewRequestListView(props) {
     }, [init])
 
     useEffect(() => {
-        // loadInterviewRequests();
+        if (page === 1) return;
+        loadInterviewRequests();
     },[page]);
 
     return (
@@ -73,7 +79,10 @@ export function InterviewRequestListView(props) {
                             )
                         })}
                     </div>
-                    <Link to="/" className="btn btn-light btn-block mg-t-20">Charger plus</Link>
+                    <span to="/" className="btn btn-light btn-block mg-t-20"
+                    onClick={handleLoadMoreClick}>
+                        {isLoading ? "Chargements.." : "Charger plus"}
+                    </span>                                
                 </div>
             </div>
         </>
