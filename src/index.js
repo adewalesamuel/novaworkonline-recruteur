@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import './assets/lib/font-awesome/css/font-awesome.css';
 import './assets/lib/Ionicons/css/ionicons.css';
 import './assets/css/slim.css';
+import './assets/lib/SpinKit/css/spinkit.css';
 
 import './index.css';
 

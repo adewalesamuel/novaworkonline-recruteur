@@ -10,7 +10,7 @@ export function InterviewRequestListView(props) {
 
     const [interview_requests, setInterview_requests] = useState([]);
     const [page, setPage] = useState(1);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     const loadInterviewRequests = async (currentPage = page) => {
         setIsLoading(true);

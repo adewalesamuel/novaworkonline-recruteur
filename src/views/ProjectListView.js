@@ -19,7 +19,7 @@ export function ProjectListView(props) {
 
     const [projects, setProjects] = useState([]);
     const [page, setPage] = useState(searchParams.get('page') ?? 1);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     const handleEditClick = (e, data) => {
         e.preventDefault();
@@ -85,19 +85,22 @@ export function ProjectListView(props) {
                 </ol>
                 <h6 className="slim-pagetitle">Mes projets</h6>
             </div> 
-            <div className="row">
-                <div className="col-12">
-                    <div className="card card-table mb-4">
-                        <div className="card-header">
-                            <h6 className="slim-card-title">Liste des projets</h6>
-                        </div>
-                        <div className="table-responsive">
-                            <Components.Table controllers={{handleEditClick}} tableAttributes={tableAttributes}
-                            tableActions={tableActions} tableData={projects}/>
+            <Components.Loader isLoading={isLoading}>
+                <div className="row">
+                    <div className="col-12">
+                        <div className="card card-table mb-4">
+                            <div className="card-header">
+                                <h6 className="slim-card-title">Liste des projets</h6>
+                            </div>
+                            <div className="table-responsive">
+                                <Components.Table controllers={{handleEditClick}}
+                                tableActions={tableActions} tableData={projects}
+                                tableAttributes={tableAttributes}/>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </Components.Loader>
         </>
     )
 }

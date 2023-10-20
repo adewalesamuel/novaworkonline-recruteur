@@ -10,7 +10,7 @@ export function DashboardView(props) {
     let abortController = new AbortController();
 
     const tableAttributes = {
-        'id': {},
+        '': {},
         'nom et prenoms': {},
         'domaine': {}
     }
@@ -45,7 +45,8 @@ export function DashboardView(props) {
             const { users } = await Services.UserService.getQualified(abortController.signal);
             const userData = users.data.map((user, index) => {
                 return {
-                    'id': index + 1,
+                    '': '',
+                    'id': user.id,
                     'nom et prenoms': `${user.lastname} ${user.firstname}`,
                     'domaine': user.job_title?.name
                 }
@@ -135,15 +136,18 @@ export function DashboardView(props) {
             </div> 
             <div className="row row-sm mg-t-20">
                 <div className="col-12">
-                    <div className="card card-table mb-4">
-                        <div className="card-header">
-                            <h6 className="slim-card-title">Nouveaux candidats qualifiés</h6>
+                    <Components.Loader isLoading={isLoading}>
+                        <div className="card card-table mb-4">
+                            <div className="card-header">
+                                <h6 className="slim-card-title">Nouveaux candidats qualifiés</h6>
+                            </div>
+                            <div className="table-responsive">
+                                <Components.Table controllers={{handleReadClick}} 
+                                tableData={users} tableActions={tableActions}
+                                tableAttributes={tableAttributes} />
+                            </div>
                         </div>
-                        <div className="table-responsive">
-                            <Components.Table controllers={{handleReadClick}} tableAttributes={tableAttributes}
-                            tableActions={tableActions} tableData={users}/>
-                        </div>
-                    </div>
+                    </Components.Loader>
                 </div>
             </div>
         </>

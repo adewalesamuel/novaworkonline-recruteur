@@ -25,6 +25,8 @@ import { Container } from './Container';
 import { ImageFileInput } from './ImageFileInput';
 import { Table } from './Table';
 import { UserCard } from './UserCard';
+import { Spinner } from './Spinner';
+import { Loader } from './Loader';
 
 export const Components = {
     CountryForm,
@@ -53,5 +55,7 @@ export const Components = {
 	Container,
 	ImageFileInput,
 	Table,
-	UserCard
+	UserCard,
+	Spinner,
+	Loader
 }

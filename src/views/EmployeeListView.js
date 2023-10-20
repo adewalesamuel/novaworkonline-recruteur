@@ -67,24 +67,26 @@ export function EmployeeListView(props) {
                 <ol className="breadcrumb slim-breadcrumb">
                 </ol>
                 <h6 className="slim-pagetitle">Mes employés</h6>
-            </div> 
-            <div className="row">
-                <div className="col-12">
-                    <div className="row row-sm">
-                        {employees.map((employee, index) => {
-                            return (
-                                <div className="col-sm-6 col-lg-3" key={index}>
-                                    <Components.UserCard user={employee.user}/>
-                                </div>
-                            )
-                        })}
-                    </div>
-                    <span to="/" className="btn btn-light btn-block mg-t-20"
-                    onClick={handleLoadMoreClick}>
-                        {isLoading ? "Chargements.." : "Charger plus"}
-                    </span>                
-                </div>
             </div>
+            <Components.Loader isLoading={isLoading}>
+                <div className="row">
+                    <div className="col-12">
+                        <div className="row row-sm">
+                            {employees.map((employee, index) => {
+                                return (
+                                    <div className="col-sm-6 col-lg-3" key={index}>
+                                        <Components.UserCard user={employee.user}/>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                        <span to="/" className="btn btn-light btn-block mg-t-20"
+                        onClick={handleLoadMoreClick}>
+                            {isLoading ? "Chargements.." : "Charger plus"}
+                        </span>                
+                    </div>
+                </div>
+            </Components.Loader> 
         </>
     )
 }

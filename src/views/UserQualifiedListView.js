@@ -80,38 +80,41 @@ export function UserQualifiedListView(props) {
                 <ol className="breadcrumb slim-breadcrumb">
                 </ol>
                 <h6 className="slim-pagetitle">Candidats qualifiés</h6>
-            </div> 
-            <div className="manager-wrapper">
-                <div className="manager-right">
-                    <div className="row row-sm">
-                        {users.map((user, index) => {
-                            return (
-                                <div className="col-sm-6 col-lg-4 pb-2" key={index}>
-                                    <Components.UserCard user={user}/>
-                                </div>
-                            )
-                        })}
-                    </div>
-                    <span to="/" className="btn btn-light btn-block mg-t-20"
-                    onClick={handleLoadMoreClick}>
-                        {isLoading ? "Chargements.." : "Charger plus"}
-                    </span>
-                </div>
-
-                <div className="manager-left">
-                    <label className="section-label-sm mg-t-25">Categories</label>
-                    <nav className="nav">
-                        {job_titles.map((job_title, index) => {
-                            return (
-                                <Link to={`/candidats/qualifies?job_title_id=${job_title.id}`} 
-                                className="nav-link" key={index}>
-                                    <span>{job_title.name}</span>
-                                </Link>
-                            )
-                        })}
-                    </nav>
-                </div>
             </div>
+            <Components.Loader isLoading={isLoading}>
+                <div className="manager-wrapper">
+                    <div className="manager-right">
+                        <div className="row row-sm">
+                            {users.map((user, index) => {
+                                return (
+                                    <div className="col-sm-6 col-lg-4 pb-2" key={index}>
+                                        <Components.UserCard user={user}/>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                        <span to="/" className="btn btn-light btn-block mg-t-20"
+                        onClick={handleLoadMoreClick}>
+                            {isLoading ? "Chargements.." : "Charger plus"}
+                        </span>
+                    </div>
+
+                    <div className="manager-left">
+                        <label className="section-label-sm mg-t-25">Categories</label>
+                        <nav className="nav">
+                            {job_titles.map((job_title, index) => {
+                                return (
+                                    <Link to={`/candidats/qualifies?job_title_id=${job_title.id}`} 
+                                    className={`nav-link ${parseInt(searchParams.get('job_title_id')) === 
+                                    job_title.id ? 'active' : ''}`} key={index}>
+                                        <span>{job_title.name}</span>
+                                    </Link>
+                                )
+                            })}
+                        </nav>
+                    </div>
+                </div>
+            </Components.Loader>
         </>
     )
 }
