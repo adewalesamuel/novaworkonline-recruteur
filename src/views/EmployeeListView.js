@@ -73,6 +73,7 @@ export function EmployeeListView(props) {
                     <div className="col-12">
                         <div className="row row-sm">
                             {employees.map((employee, index) => {
+                                if (!employee.user) return null;
                                 return (
                                     <div className="col-sm-6 col-lg-3" key={index}>
                                         <Components.UserCard user={employee.user}/>

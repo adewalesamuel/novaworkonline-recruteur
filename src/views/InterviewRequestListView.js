@@ -72,6 +72,7 @@ export function InterviewRequestListView(props) {
                 <div className="col-12">
                     <div className="row row-sm">
                         {interview_requests.map((interview_request, index) => {
+                            if (!interview_request.user) return null;
                             return (
                                 <div className="col-sm-6 col-lg-3" key={index}>
                                     <Components.UserCard user={interview_request.user}/>

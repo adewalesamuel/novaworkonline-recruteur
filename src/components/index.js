@@ -27,6 +27,7 @@ import { Table } from './Table';
 import { UserCard } from './UserCard';
 import { Spinner } from './Spinner';
 import { Loader } from './Loader';
+import { Modal } from './Modal';
 
 export const Components = {
     CountryForm,
@@ -57,5 +58,6 @@ export const Components = {
 	Table,
 	UserCard,
 	Spinner,
-	Loader
+	Loader,
+	Modal
 }

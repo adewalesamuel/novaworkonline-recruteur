@@ -13,13 +13,18 @@ export function UserShowView(props) {
 
     const resume = Hooks.useResume();
     const useInterviewRequest = Hooks.useInterviewRequest();
+    const useEmployee = Hooks.useEmployee();
 
     const [user, setUser] = useState({});
+    const [projects, setProjects] = useState([]);
     const { id } = useParams()
     const [isLoading, setIsLoading] = useState(true);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleInterviewRequestClick = async (e) => {
       e.preventDefault();
+
+      if (useInterviewRequest.isDisabled) return;
 
       try {
           const {isConfirmed} = await Utils.SweetAlert.fireAlert(
@@ -36,6 +41,26 @@ export function UserShowView(props) {
       }finally{useInterviewRequest.setIsDisabled(false);}
     }
 
+    const handleEmployeClick = e => {
+      e.preventDefault();
+      setIsModalOpen(true);
+      useEmployee.setUser_id(user.id);
+    } 
+
+    const handleEmployeSubmit = async (e) => {
+      e.preventDefault();
+
+      if (useEmployee.isDisabled) return;
+
+      try {
+            useEmployee.setIsDisabled(true);
+            await useEmployee.createEmployee(abortController.signal);
+            navigate('/employes');
+      } catch (error) {
+          console.log(error);
+      }finally{useEmployee.setIsDisabled(false);}
+    }
+
     const init = useCallback(async () => {
         try {
             const {user} = await UserService.getById(id, 
@@ -44,6 +69,10 @@ export function UserShowView(props) {
             setUser(user);
             resume.fillResume(user?.resume ?? {});
             useInterviewRequest.setUser_id(user.id);
+
+            const {projects} = await Services.ProjectService.getAll(
+              abortController.signal);
+            setProjects(projects.data);
         } catch (error) {
             console.log(error);
         } finally {setIsLoading(false)};
@@ -93,10 +122,19 @@ export function UserShowView(props) {
                     {!user.interview_request ? 
                       <li className="nav-item">
                         <button className="nav-link btn-block btn" onClick={handleInterviewRequestClick}>
-                          <i className="icon ion-ios-redo tx-purple"></i>Inviter pour entretien
+                          <i className="icon ion-ios-redo tx-purple"> </i> 
+                          {useInterviewRequest.isDisabled ? "Chargement..." : "Inviter pour entretien"}
+                        </button>
+                      </li>
+                    : null }
+                    {user.interview_request && !user.employee ? 
+                      <li className="nav-item">
+                        <button className="nav-link btn-block btn" onClick={handleEmployeClick}>
+                          <i className="icon ion-person-add tx-primary"></i> Embaucher
                         </button>
                       </li>
                     : null}
+
                   </ul>
                 </div>
 
@@ -136,8 +174,15 @@ export function UserShowView(props) {
                     </div>
                   </div>
                 </div>
-          </div>
-            </Components.Loader>
+              </div>
+          </Components.Loader>
+          {isModalOpen ? 
+            <Components.Modal title={"Embaucher le candidat"} isControlVisible={false} 
+            handleModalClose={() => setIsModalOpen(false)}>
+              <Components.EmployeeForm useEmployee={useEmployee} projects={projects}
+              isDisabled={useEmployee.isDisabled} handleFormSubmit={handleEmployeSubmit}/>
+            </Components.Modal>
+          : null}
         </>
     )
 }
