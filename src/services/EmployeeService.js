@@ -5,7 +5,7 @@ const  ENPOINTS = {
 };
 
 const getAll = (params, signal) => {
-    return Api.get(`${ENPOINTS.Employee}/?page=${params?.page ?? 1}`, signal)
+    return Api.get(`${ENPOINTS.Employee}?page=${params?.page ?? 1}`, signal)
 }
 
 const getById = (id, signal) => {
