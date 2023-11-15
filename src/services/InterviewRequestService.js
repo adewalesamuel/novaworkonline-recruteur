@@ -16,6 +16,10 @@ const create = (payload, signal) => {
     return Api.post(ENPOINTS.InterviewRequest, payload, signal)
 }
 
+const reject = (id, payload, signal) => {
+    return Api.post(`${ENPOINTS.InterviewRequest}/${id}/reject`, payload, signal)
+}
+
 const update = (id, payload, signal) => {
     return Api.put(`${ENPOINTS.InterviewRequest}/${id}`, payload, signal)
 }
@@ -28,5 +32,6 @@ export const InterviewRequestService = {
     getById,
     create,
     update,
+    reject,
     destroy
 }

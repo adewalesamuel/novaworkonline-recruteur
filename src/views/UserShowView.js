@@ -19,7 +19,8 @@ export function UserShowView(props) {
     const [projects, setProjects] = useState([]);
     const { id } = useParams()
     const [isLoading, setIsLoading] = useState(true);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
+    const [isInterviewModalOpen, setIsInterviewModalOpen] = useState(false);
 
     const handleInterviewRequestClick = async (e) => {
       e.preventDefault();
@@ -43,22 +44,49 @@ export function UserShowView(props) {
 
     const handleEmployeClick = e => {
       e.preventDefault();
-      setIsModalOpen(true);
+      setIsProjectModalOpen(true);
       useEmployee.setUser_id(user.id);
     } 
+    const handleRejectClick = e => {
+      e.preventDefault();
+      setIsInterviewModalOpen(true);
+      useInterviewRequest.setUser_id(user.id);
+    }
 
     const handleEmployeSubmit = async (e) => {
       e.preventDefault();
 
       if (useEmployee.isDisabled) return;
 
+      useEmployee.setIsDisabled(true);
+
       try {
-            useEmployee.setIsDisabled(true);
             await useEmployee.createEmployee(abortController.signal);
             navigate('/employes');
       } catch (error) {
           console.log(error);
       }finally{useEmployee.setIsDisabled(false);}
+    }
+
+    const handleInterViewRequestSubmit = async e => {
+      e.preventDefault();
+
+      if (useInterviewRequest.isDisabled) return;
+
+      useInterviewRequest.setIsDisabled(true);
+
+      try {
+            const payload = {
+              'description': useInterviewRequest.description
+            }
+            await Services.InterviewRequestService
+            .reject(user.interview_request.id, JSON.stringify(payload), 
+            abortController.signal);
+
+            navigate('/demandes-entretiens');
+      } catch (error) {
+          console.log(error);
+      }finally{useInterviewRequest.setIsDisabled(false);}
     }
 
     const init = useCallback(async () => {
@@ -119,7 +147,7 @@ export function UserShowView(props) {
                         <i className="icon ion-document-text tx-success"></i> Voir le cv
                       </Link>
                     </li>
-                    {!user.interview_request ? 
+                    {!user.interview_request || user.interview_request.status === "rejected" ? 
                       <li className="nav-item">
                         <button className="nav-link btn-block btn" onClick={handleInterviewRequestClick}>
                           <i className="icon ion-ios-redo tx-purple"> </i> 
@@ -127,10 +155,17 @@ export function UserShowView(props) {
                         </button>
                       </li>
                     : null }
-                    {user.interview_request && !user.employee ? 
+                    {user.interview_request && !user.employee && user.interview_request.status !== "rejected"? 
                       <li className="nav-item">
                         <button className="nav-link btn-block btn" onClick={handleEmployeClick}>
                           <i className="icon ion-person-add tx-primary"></i> Embaucher
+                        </button>
+                      </li>
+                    : null}
+                    {user.interview_request && user.interview_request.status !== "rejected" && !user.employee ? 
+                      <li className="nav-item">
+                        <button className="nav-link btn-block btn" onClick={handleRejectClick}>
+                          <i className="icon ion-trash-a tx-danger"></i> Décliner
                         </button>
                       </li>
                     : null}
@@ -176,11 +211,36 @@ export function UserShowView(props) {
                 </div>
               </div>
           </Components.Loader>
-          {isModalOpen ? 
+          {isProjectModalOpen ? 
             <Components.Modal title={"Embaucher le candidat"} isControlVisible={false} 
-            handleModalClose={() => setIsModalOpen(false)}>
+            handleModalClose={() => setIsProjectModalOpen(false)}>
               <Components.EmployeeForm useEmployee={useEmployee} projects={projects}
               isDisabled={useEmployee.isDisabled} handleFormSubmit={handleEmployeSubmit}/>
+            </Components.Modal>
+          : null}
+          {isInterviewModalOpen ? 
+            <Components.Modal title={"Rejeter le candidat"} isControlVisible={false} 
+            handleModalClose={() => setIsInterviewModalOpen(false)}>
+              <form>
+                <div className="row">
+                  <div className="col-12">
+                    <div className="form-group">
+                        <label htmlFor='description'>Raison du rejet</label>
+                        <textarea className='form-control' type='text' id='description' 
+                        name='description' placeholder='Veuillez spécifier la raison du rejet' 
+                        value={useInterviewRequest.description ?? ''}  rows={5}
+                        disabled={useInterviewRequest.isDisabled}  onChange={ e => 
+                        useInterviewRequest.setDescription(e.target.value) ?? null}></textarea>
+                    </div>
+                  </div>
+                  <div className='col-12 text-right'>
+                    <button disabled={useInterviewRequest.isDisabled ?? false} type='submit' 
+                    className='btn btn-primary px-5 rounded' onClick={handleInterViewRequestSubmit}>
+                        <span>{useInterviewRequest.isDisabled ? "Chargement..." : "Validez"}</span>
+                    </button>
+                  </div>
+                </div>
+              </form>
             </Components.Modal>
           : null}
         </>
