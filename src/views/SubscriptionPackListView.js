@@ -16,17 +16,57 @@ export function SubscriptionPackListView(props) {
     const handleSubscriptionPackClick = async (e, subscription_pack) => {
         e.preventDefault();
 
+        useSubscription.setAmount(subscription_pack.price);
+        useSubscription.setPayment_mode('mobile');
+        useSubscription.setSubscription_pack_id(subscription_pack.id);
+
         try {
             const {isConfirmed} = await Utils.SweetAlert.firePaymentConfirm(
                 subscription_pack.price);
 
             if (isConfirmed) {
                 useSubscription.setIsDisabled(true);
-                // Payement
+
+                const paymentData = {
+                    amount: subscription_pack.price,
+                    user: Utils.Auth.getUser(),
+                    pack: subscription_pack 
+                }
+
+                const cinetPay = Utils.Payment.CinetPay.getCheckout(paymentData);
+
+                cinetPay.waitResponse(async (data) => {
+                    if (data.status === "REFUSED") {
+                       throw new Error("Votre paiement a échoué");
+                    } else if (data.status === "ACCEPTED") {
+                        try {
+                            const payload = {
+                                amount: subscription_pack.price,
+                                payment_mode: 'mobile',
+                                subscription_pack_id: subscription_pack.id
+                            }
+            
+                            await Services.SubscriptionService.create(JSON.stringify(payload), 
+                            abortController.signal);
+                        } catch (error) {
+                            throw new Error(error);
+                        }
+                        if (alert("Votre paiement a été effectué avec succès")) {
+                            window.location.assign('/candidats/qualifies');
+                        }
+                    }
+                });
+
+                cinetPay.onError(data => {
+                    console.log(data);
+                    throw new Error(data);
+                });
             }
         } catch (error) {
             console.log(error);
-        }finally{useSubscription.setIsDisabled(false);}
+        }finally{
+            useSubscription.setIsDisabled(false);
+        }
     }
 
     const init = useCallback(async () => {

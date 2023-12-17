@@ -38,7 +38,7 @@ export function UserShowView(props) {
             //suceess toast
           }
       } catch (error) {
-          console.log(error);
+          console.log(error.status)
       }finally{useInterviewRequest.setIsDisabled(false);}
     }
 
@@ -102,7 +102,16 @@ export function UserShowView(props) {
               abortController.signal);
             setProjects(projects.data);
         } catch (error) {
-            console.log(error);
+            const messages = await error.messages;
+
+            if (error.status === 500) {
+              if (messages.length >= 1 && 
+                messages[0] === "Souscription non trouvé ou expirée") {
+                messages.push('Veuillez souscrire à un abonnement pour voir le profil')
+                alert(messages.join('\n'))
+                navigate('/packs')
+              }
+            }
         } finally {setIsLoading(false)};
     }, []);
 

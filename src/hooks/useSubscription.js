@@ -8,6 +8,7 @@ export const useSubscription = () => {
 	const [payment_mode, setPayment_mode] = useState('');
 	const [payment_status, setPayment_status] = useState('');
 	const [expiration_date, setExpiration_date] = useState('');
+    const [subscription_pack_id, setSubscription_pack_id] = useState('');
 	const [subscriber_id, setSubscriber_id] = useState('');
 	
 
@@ -30,7 +31,7 @@ export const useSubscription = () => {
 		payment_status,
 		expiration_date,
 		subscriber_id,
-		
+		subscription_pack_id
         };
 
         return Services.SubscriptionService.create(JSON.stringify(payload), signal);
@@ -43,7 +44,7 @@ export const useSubscription = () => {
 		payment_status,
 		expiration_date,
 		subscriber_id,
-		
+		subscription_pack_id
         };
 
         return Services.SubscriptionService.update(subscriptionId, JSON.stringify(payload), signal);
@@ -59,6 +60,7 @@ export const useSubscription = () => {
 		setPayment_status(subscription.payment_status ?? '');
 		setExpiration_date(subscription.expiration_date ?? '');
 		setSubscriber_id(subscription.subscriber_id ?? '');
+		setSubscription_pack_id(subscription.subscription_pack_id ?? '');
 		
     }
     const emptySubscription = () => {
@@ -69,6 +71,7 @@ export const useSubscription = () => {
 		setPayment_status('');
 		setExpiration_date('');
 		setSubscriber_id('');
+		setSubscription_pack_id('');
 		
     }
 
@@ -80,7 +83,7 @@ export const useSubscription = () => {
 		payment_status,
 		expiration_date,
 		subscriber_id,
-		
+		subscription_pack_id,
         errors,
         isDisabled,
         setType,
@@ -89,6 +92,7 @@ export const useSubscription = () => {
 		setPayment_status,
 		setExpiration_date,
 		setSubscriber_id,
+        setSubscription_pack_id,
 		
         setId,
         setErrors,

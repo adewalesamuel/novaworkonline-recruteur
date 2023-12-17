@@ -1,11 +1,11 @@
 import { Api } from './Api';
 
 const  ENPOINTS = {
-    Subscription: 'subscriptions',
+    Subscription: 'recruiter/subscriptions',
 };
 
-const getAll = signal => {
-    return Api.get(ENPOINTS.Subscription, signal)
+const getAll = (params, signal) => {
+    return Api.get(`${ENPOINTS.Subscription}?page=${params?.page ?? 1}`, signal)
 }
 
 const getById = (id, signal) => {
