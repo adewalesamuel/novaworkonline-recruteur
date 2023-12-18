@@ -37,21 +37,19 @@ export function SubscriptionPackListView(props) {
 
                 cinetPay.waitResponse(async (data) => {
                     if (data.status === "REFUSED") {
-                       throw new Error("Votre paiement a échoué");
+                        console.log("Votre paiement a échoué");
                     } else if (data.status === "ACCEPTED") {
-                        try {
-                            const payload = {
-                                amount: subscription_pack.price,
-                                payment_mode: 'mobile',
-                                subscription_pack_id: subscription_pack.id
-                            }
-            
-                            await Services.SubscriptionService.create(JSON.stringify(payload), 
-                            abortController.signal);
-                        } catch (error) {
-                            throw new Error(error);
+                        const payload = {
+                            amount: subscription_pack.price,
+                            payment_mode: 'mobile',
+                            subscription_pack_id: subscription_pack.id
                         }
-                        
+
+                        setIsLoading(true);
+        
+                        await Services.SubscriptionService.create(JSON.stringify(payload), 
+                        new AbortController().signal);
+
                         alert("Votre paiement a été effectué avec succès")
                         window.location.assign('/candidats/qualifies');
                     }
@@ -59,7 +57,7 @@ export function SubscriptionPackListView(props) {
 
                 cinetPay.onError(data => {
                     console.log(data);
-                    throw new Error(data);
+                    alert('Une erreur est survenue. Veuillez réessayer plus tard')
                 });
             }
         } catch (error) {
