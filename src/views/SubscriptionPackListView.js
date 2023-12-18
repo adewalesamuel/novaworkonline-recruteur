@@ -51,9 +51,9 @@ export function SubscriptionPackListView(props) {
                         } catch (error) {
                             throw new Error(error);
                         }
-                        if (alert("Votre paiement a été effectué avec succès")) {
-                            window.location.assign('/candidats/qualifies');
-                        }
+                        
+                        alert("Votre paiement a été effectué avec succès")
+                        window.location.assign('/candidats/qualifies');
                     }
                 });
 

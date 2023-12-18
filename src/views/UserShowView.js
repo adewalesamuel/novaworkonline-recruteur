@@ -105,9 +105,14 @@ export function UserShowView(props) {
             const messages = await error.messages;
 
             if (error.status === 500) {
+              const message = messages[0];
+
               if (messages.length >= 1 && 
-                messages[0] === "Souscription non trouvé ou expirée") {
-                messages.push('Veuillez souscrire à un abonnement pour voir le profil')
+                (message === "Votre souscription à expirée" || 
+                message === "Vous n'avez pas de souscription")) {
+
+                messages.push('Veuillez souscrire à un abonnement pour voir le profil');
+                
                 alert(messages.join('\n'))
                 navigate('/packs')
               }
