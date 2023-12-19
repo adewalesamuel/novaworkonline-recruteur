@@ -28,6 +28,7 @@ import { UserCard } from './UserCard';
 import { Spinner } from './Spinner';
 import { Loader } from './Loader';
 import { Modal } from './Modal';
+import { AuthLeftSide } from './AuthLeftSide';
 
 export const Components = {
     CountryForm,
@@ -59,5 +60,6 @@ export const Components = {
 	UserCard,
 	Spinner,
 	Loader,
-	Modal
+	Modal,
+	AuthLeftSide
 }
