@@ -17,15 +17,15 @@ const CinetPay = {
             channels: 'ALL',
             description: pack.description,   
              //Fournir ces variables pour le paiements par carte bancaire
-            customer_name:user.firstname ?? "",//Le nom du client
-            customer_surname:user.lastname ?? "",//Le prenom du client
+            customer_name:user.firstname ?? "recruiteur prenom",//Le nom du client
+            customer_surname:user.lastname ?? "recruiteur nom",//Le prenom du client
             customer_email: user.email,//l'email du client
-            customer_phone_number: user.phone_number ?? "",//l'email du client
+            customer_phone_number: user.phone_number ?? "00000000",//l'email du client
             customer_address : user.location,//addresse du client
-            customer_city: user.location ?? "",// La ville du client
-            customer_country : "",// le code ISO du pays
-            customer_state : "",// le code ISO l'état
-            customer_zip_code : "", // code postal
+            customer_city: user.location ?? "Canada",// La ville du client
+            customer_country : "CA",// le code ISO du pays
+            customer_state : "QC",// le code ISO l'état
+            customer_zip_code : "G5H", // code postal
 
         })
 

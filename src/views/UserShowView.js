@@ -34,7 +34,7 @@ export function UserShowView(props) {
           if (isConfirmed) {
             useInterviewRequest.setIsDisabled(true);
             await useInterviewRequest.createInterviewRequest(abortController.signal);
-            navigate('/demandes-entretiens');
+            navigate('/demandes-entretiens', {replace: true});
             //suceess toast
           }
       } catch (error) {
@@ -195,29 +195,22 @@ export function UserShowView(props) {
                       <div className="media">
                         <div><i className="icon ion-link tx-24 lh-0"></i></div>
                         <div className="media-body mg-l-15 mg-t-4">
-                          <h6 className="tx-14 tx-gray-700">Genre</h6>
-                          <p>{user.gender}</p>
+                          <h6 className="tx-14 tx-gray-700">Lien du certificat</h6>
+                          <p>
+                            <a href={user.certificat_url} target="_blank" rel="noreferrer">
+                              {user.certificat_url}
+                            </a>
+                          </p>
                         </div>
                       </div>
                       <div className="media mg-t-25">
                         <div><i className="icon ion-ios-calendar-outline tx-18 lh-0"></i></div>
                         <div className="media-body mg-l-15 mg-t-2">
-                          <h6 className="tx-14 tx-gray-700">Date de naissance</h6>
-                          <p>{user.birth_date}</p>
-                        </div>
-                      </div>
-                      <div className="media mg-t-25">
-                        <div><i className="icon ion-ios-email-outline tx-24 lh-0"></i></div>
-                        <div className="media-body mg-l-15 mg-t-4">
-                          <h6 className="tx-14 tx-gray-700">Adresse mail</h6>
-                          <span className="d-block">XXXXXXXXXX</span>
-                        </div>
-                      </div>
-                      <div className="media mg-t-25">
-                        <div><i className="icon ion-ios-telephone-outline tx-24 lh-0"></i></div>
-                        <div className="media-body mg-l-15 mg-t-4">
-                          <h6 className="tx-14 tx-gray-700">Numero de téléphone</h6>
-                          <span className="d-block">XXXXXXXXXX</span>
+                          <h6 className="tx-14 tx-gray-700">Vidéo de présentation</h6>
+                          <p>
+                            <video src={user.video_url} width={"100%"} controls
+                            style={{minHeight: "140px", backgroundColor: 'grey'}}></video>
+                          </p>
                         </div>
                       </div>
                     </div>
