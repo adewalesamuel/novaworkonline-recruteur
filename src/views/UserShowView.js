@@ -38,7 +38,21 @@ export function UserShowView(props) {
             //suceess toast
           }
       } catch (error) {
-          console.log(error.status)
+        const messages = await error.messages;
+
+        if (error.status === 500) {
+          const message = messages[0];
+
+          if (messages.length >= 1 && 
+            (message === "Votre souscription à expirée" || 
+            message === "Vous n'avez pas de souscription")) {
+
+            messages.push('Veuillez souscrire à un abonnement pour voir le profil');
+            
+            alert(messages.join('\n'))
+            navigate('/packs')
+          }
+        }
       }finally{useInterviewRequest.setIsDisabled(false);}
     }
 
@@ -102,21 +116,7 @@ export function UserShowView(props) {
               abortController.signal);
             setProjects(projects.data);
         } catch (error) {
-            const messages = await error.messages;
-
-            if (error.status === 500) {
-              const message = messages[0];
-
-              if (messages.length >= 1 && 
-                (message === "Votre souscription à expirée" || 
-                message === "Vous n'avez pas de souscription")) {
-
-                messages.push('Veuillez souscrire à un abonnement pour voir le profil');
-                
-                alert(messages.join('\n'))
-                navigate('/packs')
-              }
-            }
+            console.log(error);
         } finally {setIsLoading(false)};
     }, []);
 
@@ -196,7 +196,7 @@ export function UserShowView(props) {
                         <div><i className="icon ion-link tx-24 lh-0"></i></div>
                         <div className="media-body mg-l-15 mg-t-4">
                           <h6 className="tx-14 tx-gray-700">Lien du certificat</h6>
-                          <p>
+                          <p style={{wordBreak:'break-word'}}>
                             <a href={user.certificat_url} target="_blank" rel="noreferrer">
                               {user.certificat_url}
                             </a>
