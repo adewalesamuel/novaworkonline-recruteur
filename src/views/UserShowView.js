@@ -47,7 +47,7 @@ export function UserShowView(props) {
             (message === "Votre souscription à expirée" || 
             message === "Vous n'avez pas de souscription")) {
 
-            messages.push('Veuillez souscrire à un abonnement pour voir le profil');
+            messages.push('Veuillez souscrire à un abonnement pour recruter ce candidat');
             
             alert(messages.join('\n'))
             navigate('/packs')
@@ -195,11 +195,14 @@ export function UserShowView(props) {
                       <div className="media">
                         <div><i className="icon ion-link tx-24 lh-0"></i></div>
                         <div className="media-body mg-l-15 mg-t-4">
-                          <h6 className="tx-14 tx-gray-700">Lien du certificat</h6>
+                          <h6 className="tx-14 tx-gray-700">Certificat</h6>
                           <p style={{wordBreak:'break-word'}}>
-                            <a href={user.certificat_url} target="_blank" rel="noreferrer">
+                          <a a href={user.certificat_url} className="btn btn-primary btn-block">
+                            Voir le certificat
+                          </a>
+                            {/* <a href={user.certificat_url} target="_blank" rel="noreferrer">
                               {user.certificat_url}
-                            </a>
+                            </a> */}
                           </p>
                         </div>
                       </div>

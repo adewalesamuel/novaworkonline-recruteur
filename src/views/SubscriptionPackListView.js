@@ -104,7 +104,7 @@ export function SubscriptionPackListView(props) {
                                         <div className="pricing-icon"><i className="icon ion-model-s"></i></div>
                                         <h5 className="pricing-title">{subscription_pack.name}</h5>
                                         <p className="pricing-text">{subscription_pack.description}</p>
-                                        <h1 className="pricing-price">{subscription_pack.price} Fcfa</h1>
+                                        <h1 className="pricing-price">{subscription_pack.price} $</h1>
                                         <button className="btn btn-primary btn-pricing btn-block" 
                                         onClick={e => handleSubscriptionPackClick(e, subscription_pack)}>
                                             Souscrire

@@ -69,14 +69,14 @@ export function SubscriptionListView(props) {
             <div className="slim-pageheader">
                 <ol className="breadcrumb slim-breadcrumb">
                 </ol>
-                <h6 className="slim-pagetitle">Mes souscriptions</h6>
+                <h6 className="slim-pagetitle">Mes Abonnements</h6>
             </div> 
             <Components.Loader isLoading={isLoading}>
                 <div className="row">
                     <div className="col-12">
                         <div className="card card-table mb-4">
                             <div className="card-header">
-                                <h6 className="slim-card-title">Liste des paiements</h6>
+                                <h6 className="slim-card-title">Liste des abonnements</h6>
                             </div>
                             <div className="table-responsive">
                                 <Components.Table controllers={{}}
