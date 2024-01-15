@@ -197,7 +197,7 @@ export function UserShowView(props) {
                         <div className="media-body mg-l-15 mg-t-4">
                           <h6 className="tx-14 tx-gray-700">Certificat</h6>
                           <p style={{wordBreak:'break-word'}}>
-                          <a a href={user.certificat_url} className="btn btn-primary btn-block">
+                          <a href={user.certificat_url} className="btn btn-primary btn-block text-white">
                             Voir le certificat
                           </a>
                             {/* <a href={user.certificat_url} target="_blank" rel="noreferrer">
