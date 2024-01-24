@@ -107,7 +107,10 @@ export function RecruiterForm(props) {
                         onChange={e => props.useRecruiter.setCountry_id(e.target.value) ?? null} required>
                             {
                                 props.countries.map(country => {
-                                    return <option key={Math.random()} value={country.id ?? ''}>{country.name}</option>
+                                    return (country.name === "Canada" && 
+                                    <option key={Math.random()} value={country.id ?? ''}>
+                                        {country.name}
+                                    </option>)
                                 })
                             }
                         </select>

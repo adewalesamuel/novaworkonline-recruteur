@@ -2,7 +2,6 @@ import { Layout } from "../layouts";
 import { Hooks } from '../hooks'
 import { Components } from "../components";
 
-import logo from '../assets/img/logo.png';
 import { useState } from "react";
 import { Utils } from "../utils";
 import { useSearchParams } from "react-router-dom";
@@ -11,21 +10,64 @@ import { Services } from "../services";
 export function RegisterView(props){
     const aborController = new AbortController();
 
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams, ] = useSearchParams();
     const useRecruiter = Hooks.useRecruiter();
 
     const [errorMessages, setErrorMessages] = useState([]); 
 
+    const validateFormFields = (validatorList) => {
+        const errorList = [];
+
+        validatorList.forEach(validatorItem => {
+            const {pattern, value, message} = validatorItem;
+
+            if (!pattern.test(value)) errorList.push(message);
+        })
+
+        return errorList;
+    }
+
     const handleRegisterSubmit = async (e) => {
         e.preventDefault();
         setErrorMessages([]);
-
-        if (useRecruiter.password !== useRecruiter.password_confirmation)
-            return setErrorMessages(["Les mots de passe ne correcpondent pas !"])
         
         useRecruiter.setIsDisabled(true);
         
         try {
+            const errorList =  validateFormFields([
+                {
+                    value: useRecruiter.lastname,
+                    pattern: new RegExp('[A-Za-z]', 'g'),
+                    message: 'Le nom ne doit pas contenir de chiffres'
+                },
+                {
+                    value: useRecruiter.password,
+                    pattern: new RegExp('[A-Z]', 'g'),
+                    message: 'le mot de passe doit contenir au moins une lettre majuscule'
+                },
+                {
+                    value: useRecruiter.password,
+                    pattern: new RegExp('[a-z]', 'g'),
+                    message: 'le mot de passe doit contenir au moins une lettre minuscule'
+                },
+                {
+                    value: useRecruiter.password,
+                    pattern: new RegExp('[@$!%*#?&]', 'gi'),
+                    message: 'le mot de passe doit contenir au moins un caractère spécial'
+                }
+
+            ]);
+
+            if (errorList.length > 0) {
+                const error = new Error('Une erreur est survenue');
+                error.errorList = errorList
+
+                throw error;
+            }
+
+            if (useRecruiter.password !== useRecruiter.password_confirmation)
+                return setErrorMessages(['Vos mots de passes ne correspondent pas!']);
+
             const payload = {
                 company_name: useRecruiter.company_name,
                 firstname: useRecruiter.firstname,
@@ -44,11 +86,13 @@ export function RegisterView(props){
 
             window.location.replace(`${searchParams.get('from') ?? "/"}`);
         } catch (error) {
-            console.log(error);
-            // Utils.Error.handleError(error);
-            
+            if ('errorList' in error)
+            setErrorMessages(error.errorList)
+        
             if ('messages' in error)
-                error.messages.then(messages => setErrorMessages(messages));
+                error.messages.then(messages => {
+                    setErrorMessages(messages);
+                });
         } finally {
             useRecruiter.setIsDisabled(false)
         }

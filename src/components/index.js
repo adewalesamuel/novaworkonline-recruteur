@@ -29,6 +29,7 @@ import { Spinner } from './Spinner';
 import { Loader } from './Loader';
 import { Modal } from './Modal';
 import { AuthLeftSide } from './AuthLeftSide';
+import { CustomPasswordInput } from './CustomPasswordInput';
 
 export const Components = {
     CountryForm,
@@ -61,5 +62,6 @@ export const Components = {
 	Spinner,
 	Loader,
 	Modal,
-	AuthLeftSide
+	AuthLeftSide,
+	CustomPasswordInput
 }
