@@ -6,6 +6,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: white;
 }
 
 code {
@@ -41,12 +42,6 @@ code {
   color: white !important;
 }
 
-.nav-pills .nav-link.active, .nav-pills .nav-link.active:hover, 
-.nav-pills .nav-link.active:focus {
-  color: #fff;
-  background-color: #2f1b66;
-}
-
 .sdk {
   display: block;
   position: absolute;
@@ -56,6 +51,23 @@ code {
   top: 50%;
   transform: translate(-50%, -50%);
 }
+
+.sidebar-nav-link, .sidebar-nav-link .icon {
+  border: none;
+  color:#2f1b66;
+}
+
+.sidebar-nav-link.active {
+  background-image: linear-gradient(to right, #2f1b66 0%, #2f1b66 100%);
+}
+
+
+.nav-pills .nav-link.active, .nav-pills .nav-link.active:hover, 
+.nav-pills .nav-link.active:focus {
+  color: #fff;
+  background-color: #2f1b66;
+}
+
 
 .rounded-pill {
   border-radius: 100px;

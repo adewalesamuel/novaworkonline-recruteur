@@ -30,6 +30,7 @@ import { Loader } from './Loader';
 import { Modal } from './Modal';
 import { AuthLeftSide } from './AuthLeftSide';
 import { CustomPasswordInput } from './CustomPasswordInput';
+import { MainmenuV2 } from './MainMenuV2';
 
 export const Components = {
     CountryForm,
@@ -63,5 +64,6 @@ export const Components = {
 	Loader,
 	Modal,
 	AuthLeftSide,
-	CustomPasswordInput
+	CustomPasswordInput,
+	MainmenuV2
 }

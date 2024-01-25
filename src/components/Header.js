@@ -21,9 +21,6 @@ export function Header(props) {
         <div className="slim-header">
             <div className="container">
                 <div className="slim-header-left">
-                    <h2 className="slim-logo">
-                        <a href="index.html"><img src={logo} height="40px" alt=""/></a>
-                    </h2>
 
                     {/* <div className="search-box">
                         <input type="text" className="form-control" placeholder="Rechercher" />

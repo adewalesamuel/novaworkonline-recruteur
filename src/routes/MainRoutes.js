@@ -4,7 +4,7 @@ import { Views } from "../views";
 
 export function MainRoutes(props) {
     return (
-        <Layout.MainLayout>
+        <Layout.MainLayoutV2>
             <Routes>
                 <Route path="/packs" element={<Views.SubscriptionPackListView />} />
                 <Route path="/paiements" element={<Views.SubscriptionListView />} />
@@ -19,6 +19,6 @@ export function MainRoutes(props) {
                 <Route path="/" element={<Views.DashboardView />}/>
             </Routes>
 
-        </Layout.MainLayout>
+        </Layout.MainLayoutV2>
     )
 }
