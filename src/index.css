@@ -7,11 +7,20 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: white;
+  color: #2f1b66;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.sidebar-nav-item:first-child .sidebar-nav-link {
+  border-top: none;
+}
+
+.card-table .table thead tr th, .card-table .table thead tr td {
+  background-color: white;
 }
 
 .wizard > .content > .body input {
@@ -71,4 +80,8 @@ code {
 
 .rounded-pill {
   border-radius: 100px;
+}
+
+.text-primary {
+  color: #2f1b66 !important;
 }

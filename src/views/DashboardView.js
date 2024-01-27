@@ -5,6 +5,7 @@ import { Components } from "../components";
 
 import entretienIcon from '../assets/img/entretien-icon.png';
 import projetIcon from '../assets/img/project-icons.png';
+import candidatIcon from "../assets/img/candidat-qualifie.png";
 
 export function DashboardView(props) {
     let abortController = new AbortController();
@@ -68,67 +69,63 @@ export function DashboardView(props) {
 
     return (
         <>
-            <div className="slim-pageheader">
-                <ol className="breadcrumb slim-breadcrumb">
-                </ol>
-                <h6 className="slim-pagetitle">Tableau de bord</h6>
-            </div> 
             <div className="row">
-                <div className="col-sm-6 col-lg-3">
+                <div className="col-sm-6 col-lg-4">
                     <div className="card card-status pointer" role="button"
                     onClick={() => navigate('/candidats/qualifies')}>
                         <div className="media" role="button">
-                            <i className="icon ion-ios-personadd-outline tx-purple"></i>
+                            <img className="im-fluid" src={candidatIcon} 
+                            style={{width: "50px"}} alt="candidats qualifies" />
                             <div className="media-body">
-                            <h1>{qualified_user_count}</h1>
-                            <p>Candidats qualifiés</p>
+                            <strong>Candidats qualifiés</strong>
+                            <h1 className="text-primary text-center">{qualified_user_count}</h1>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="col-sm-6 col-lg-3 mg-t-10 mg-sm-t-0">
+                <div className="col-sm-6 col-lg-4 mg-t-10 mg-sm-t-0">
                     <div className="card card-status pointer" role="button"
                     onClick={() => navigate('/demandes-entretiens')}>
                         <div className="media">
                             <img className="icon" src={entretienIcon} width="80px" alt="entretiens"/>
                             <div className="media-body">
-                            <h1>{interview_request_count}</h1>
-                            <p>Invités pour entretiens</p>
+                            <strong>Invités pour entretiens</strong>
+                            <h1 className="text-primary text-center">{interview_request_count}</h1>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="col-sm-6 col-lg-3 mg-t-10 mg-lg-t-0">
+                <div className="col-sm-6 col-lg-4 mg-t-10 mg-lg-t-0">
                     <div className="card card-status" role="button"
                     onClick={() => navigate('/employes')}>
                     <div className="media">
                         <i className="icon ion-ios-people-outline tx-primary"></i>
                         <div className="media-body">
-                        <h1>{employees_count}</h1>
-                        <p>Mes employés</p>
+                        <strong>Mes employés</strong>
+                        <h1 className="text-primary text-center">{employees_count}</h1>
                         </div>
                     </div>
                     </div>
                 </div>
-                <div className="col-sm-6 col-lg-3 mg-t-10 mg-lg-t-0">
+                <div className="col-sm-6 col-lg-4 mg-t-10 mg-lg-t-0 mt-3">
                     <div className="card card-status">
                     <div className="media">
                         <i className="icon ion-card tx-pink"></i>
                         <div className="media-body">
+                        <strong>Montant dépensé</strong>
                         <h1>0</h1>
-                        <p>Montant dépensé</p>
                         </div>
                     </div>
                     </div>
                 </div>
-                <div className="col-sm-6 col-lg-3 mg-t-10 mg-lg-t-0 mt-3">
+                <div className="col-sm-6 col-lg-4 mg-t-10 mg-lg-t-0 mt-3">
                     <div className="card card-status" role="button"
                     onClick={() => navigate('/projets')}>
                     <div className="media">
                         <img className="icon" src={projetIcon} alt="projets"/>
                         <div className="media-body">
-                        <h1>{projects_count}</h1>
-                        <p>Projets</p>
+                        <strong>Projets</strong>
+                        <h1 className="text-primary text-center">{projects_count}</h1>
                         </div>
                     </div>
                     </div>
@@ -139,7 +136,7 @@ export function DashboardView(props) {
                     <Components.Loader isLoading={isLoading}>
                         <div className="card card-table mb-4">
                             <div className="card-header">
-                                <h6 className="slim-card-title">Nouveaux candidats qualifiés</h6>
+                                <h6 className="slim-card-title text-primary">Nouveaux candidats qualifiés</h6>
                             </div>
                             <div className="table-responsive">
                                 <Components.Table controllers={{handleReadClick}} 

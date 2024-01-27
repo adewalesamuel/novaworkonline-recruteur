@@ -20,12 +20,9 @@ export function Header(props) {
     return (
         <div className="slim-header">
             <div className="container">
-                <div className="slim-header-left">
-
-                    {/* <div className="search-box">
-                        <input type="text" className="form-control" placeholder="Rechercher" />
-                        <button className="btn btn-primary"><i className="fa fa-search"></i></button>
-                    </div> */}
+                    <div className="slim-header-left">
+                    <i className='fa fa-search mr-3' ></i>
+                    Recherche
                 </div>
                 <div className="slim-header-right" role='button'>
                     <div className="dropdown dropdown-c">
