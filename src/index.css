@@ -32,6 +32,10 @@ code {
   border-color: #ff7539 !important;
 }
 
+.btn-info {
+  background-color: #2f1b66;
+}
+
 .slim-navbar .nav-item .nav-link.active {
   color: #fff;
 }

@@ -3,9 +3,11 @@ import { useCallback, useEffect, useState } from "react";
 import { Services } from "../services";
 import { Components } from "../components";
 
-import entretienIcon from '../assets/img/entretien-icon.png';
-import projetIcon from '../assets/img/project-icons.png';
 import candidatIcon from "../assets/img/candidat-qualifie.png";
+import invitesIcon from "../assets/img/invite-entretien.png";
+import employeIcon from "../assets/img/employe.png";
+import montantIcon from "../assets/img/montant.png";
+import projetIcon from "../assets/img/projets.png";
 
 export function DashboardView(props) {
     let abortController = new AbortController();
@@ -71,7 +73,7 @@ export function DashboardView(props) {
         <>
             <div className="row">
                 <div className="col-sm-6 col-lg-4">
-                    <div className="card card-status pointer" role="button"
+                    <div className="card card-status rounded pointer" role="button"
                     onClick={() => navigate('/candidats/qualifies')}>
                         <div className="media" role="button">
                             <img className="im-fluid" src={candidatIcon} 
@@ -84,10 +86,11 @@ export function DashboardView(props) {
                     </div>
                 </div>
                 <div className="col-sm-6 col-lg-4 mg-t-10 mg-sm-t-0">
-                    <div className="card card-status pointer" role="button"
+                    <div className="card card-status rounded pointer" role="button"
                     onClick={() => navigate('/demandes-entretiens')}>
                         <div className="media">
-                            <img className="icon" src={entretienIcon} width="80px" alt="entretiens"/>
+                            <img className="im-fluid" src={invitesIcon}    
+                            style={{width: "50px"}} alt="candidats qualifies" />
                             <div className="media-body">
                             <strong>Invités pour entretiens</strong>
                             <h1 className="text-primary text-center">{interview_request_count}</h1>
@@ -96,10 +99,11 @@ export function DashboardView(props) {
                     </div>
                 </div>
                 <div className="col-sm-6 col-lg-4 mg-t-10 mg-lg-t-0">
-                    <div className="card card-status" role="button"
+                    <div className="card card-status rounded" role="button"
                     onClick={() => navigate('/employes')}>
                     <div className="media">
-                        <i className="icon ion-ios-people-outline tx-primary"></i>
+                        <img className="im-fluid" src={employeIcon} 
+                        style={{width: "40px"}} alt="candidats qualifies" />
                         <div className="media-body">
                         <strong>Mes employés</strong>
                         <h1 className="text-primary text-center">{employees_count}</h1>
@@ -108,9 +112,10 @@ export function DashboardView(props) {
                     </div>
                 </div>
                 <div className="col-sm-6 col-lg-4 mg-t-10 mg-lg-t-0 mt-3">
-                    <div className="card card-status">
+                    <div className="card card-status rounded">
                     <div className="media">
-                        <i className="icon ion-card tx-pink"></i>
+                        <img className="im-fluid" src={montantIcon} 
+                        style={{width: "50px"}} alt="candidats qualifies" />
                         <div className="media-body">
                         <strong>Montant dépensé</strong>
                         <h1>0</h1>
@@ -119,10 +124,11 @@ export function DashboardView(props) {
                     </div>
                 </div>
                 <div className="col-sm-6 col-lg-4 mg-t-10 mg-lg-t-0 mt-3">
-                    <div className="card card-status" role="button"
+                    <div className="card card-status rounded" role="button"
                     onClick={() => navigate('/projets')}>
                     <div className="media">
-                        <img className="icon" src={projetIcon} alt="projets"/>
+                        <img className="im-fluid" src={projetIcon} 
+                        style={{width: "50px"}} alt="candidats qualifies" />
                         <div className="media-body">
                         <strong>Projets</strong>
                         <h1 className="text-primary text-center">{projects_count}</h1>
