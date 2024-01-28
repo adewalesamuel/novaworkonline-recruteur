@@ -81,11 +81,14 @@ code {
   background-color: #2f1b66;
 }
 
-
 .rounded-pill {
-  border-radius: 100px;
+  border-radius: 500px;
 }
 
 .text-primary {
   color: #2f1b66 !important;
+}
+
+.bg-blue {
+  background-color: #2f1b66 !important;
 }
