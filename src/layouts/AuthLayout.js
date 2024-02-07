@@ -8,7 +8,7 @@ export function AuthLayout(props) {
 
     useEffect(() => {
         if (!navigate) return;
-        if (Utils.Auth.isLoggedIn()) navigate(('/'));
+        if (Utils.Auth.isLoggedIn()) navigate(('/'), {replace:true});
     }, [navigate])
 
     if (Utils.Auth.isLoggedIn()) return null;
