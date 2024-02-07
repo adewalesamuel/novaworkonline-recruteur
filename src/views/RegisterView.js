@@ -106,7 +106,7 @@ export function RegisterView(props){
                 <div className="signin-box signup">
                     <h3 className="signin-title-primary">Inscription !</h3>
                     <h5 className="signin-title-secondary lh-4">
-                        inscrivez vous gratuitement en quelque secondes !
+                        Inscrivez-vous gratuitement en quelque secondes !
                     </h5>
                     <Components.ErrorMessages>
                         {errorMessages}

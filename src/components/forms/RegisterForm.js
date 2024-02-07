@@ -9,7 +9,7 @@ export function RegisterForm(props) {
                 <div className="col-sm-12 mb-3">
                     <input disabled={props.isDisabled} type="text" className="form-control rounded-pill" 
                     value={props.useRecruiter.company_name}  onChange={e => 
-                    props.useRecruiter.setCompany_name(e.target.value)} placeholder="Nom de companie" />
+                    props.useRecruiter.setCompany_name(e.target.value)} placeholder="Nom de la compagnie" />
                 </div>
                 <div className="col-sm">
                     <input disabled={props.isDisabled} type="text" className="form-control rounded-pill" 

@@ -8,7 +8,7 @@ export function MainLayout(props){
     const navigate = useNavigate();
     useEffect(() => {
         if (!navigate) return;
-        if (!Utils.Auth.isLoggedIn()) navigate(('/connexion'));
+        if (!Utils.Auth.isLoggedIn()) navigate(('/connexion'), {replace:true});
     })
     if (!Utils.Auth.isLoggedIn()) return null;
     return (
