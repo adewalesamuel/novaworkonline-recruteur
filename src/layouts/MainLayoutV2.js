@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { Utils } from "../utils";
 import { useEffect } from "react";
 import { Components } from "../components";
+import { ToastContainer } from 'react-toast';
 
 export function MainLayoutV2(props){
     const navigate = useNavigate();
@@ -28,6 +29,7 @@ export function MainLayoutV2(props){
                     </div>
                 </div>
             </div>
+            <ToastContainer position="top-right" delay={3000}/>
         </>
     )
 }
